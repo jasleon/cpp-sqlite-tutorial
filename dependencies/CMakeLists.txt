@@ -30,3 +30,15 @@ FetchContent_Declare(
     GIT_TAG        42ebcec9dc2c99a1b3a4542787572045763ad196 # v0.6.3
 )
 FetchContent_MakeAvailable(docopt)
+
+FetchContent_Declare(
+    sqlite_content
+    URL            https://www.sqlite.org/2021/sqlite-amalgamation-3360000.zip # 3.36.0
+    URL_HASH       SHA3_256=d25609210ec93b3c8c7da66a03cf82e2c9868cfbd2d7d866982861855e96f972
+)
+FetchContent_GetProperties(sqlite_content)
+if(NOT sqlite_content_POPULATED)
+    FetchContent_Populate(sqlite_content)
+    add_library(sqlite3 ${sqlite_content_SOURCE_DIR}/sqlite3.c)
+    include_directories(${sqlite_content_SOURCE_DIR})
+endif()
